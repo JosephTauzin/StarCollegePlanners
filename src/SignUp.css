@@ -1,0 +1,318 @@
+/* SignUp.css */
+
+.signup-page {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+
+    overflow: hidden;
+    box-shadow: 0 0.8vw 1.5vw rgba(0, 0, 0, 0.1);
+
+
+}
+
+.left-side{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.right-side {
+    flex: 1;
+    padding: 5vw; /* Reduced from 2.5vw */
+    padding-top: 15vh;
+    
+}
+
+.left-side {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.testimonial {
+    text-align: center;
+    width: 80%;
+ 
+}
+
+.testimonial h1 {
+    font-size: 2rem; /* Reduced from 1.6rem */
+    margin-bottom: 1vw; /* Reduced from 1.2vw */
+}
+
+.testimonial p {
+    font-size: 1.15rem; /* Reduced from 1rem */
+}
+
+.right-side {
+    background: #f9f9f9;
+    
+}
+
+.right-side h2 {
+    margin-bottom: 1.8vw; /* Reduced from 2vw */
+    font-size: 1.5rem; /* Reduced from 1.6rem */
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 1vw; /* Reduced from 1.2vw */
+    margin-top: 1vw;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1.05rem; /* Reduced from 0.9rem */
+    color: #555;
+    margin-bottom: 0.6vw; /* Reduced from 0.4vw */
+}
+
+.form-group .form-control {
+    width: 100%;
+    padding: 0.6vw 0.9vw; /* Reduced from 0.7vw 1vw */
+    font-size: 0.85rem; /* Reduced from 0.9rem */
+    border: 0.07vw solid #ddd; /* Reduced from 0.08vw */
+    border-radius: 0.25vw; /* Reduced from 0.3vw */
+}
+
+.btn {
+    width: 100%;
+    padding: 0.9vw; /* Reduced from 1vw */
+    font-size: 0.9rem; /* Reduced from 0.95rem */
+    background: #6e8efb;
+    border: none;
+    color: #fff;
+    border-radius: 0.25vw; /* Reduced from 0.3vw */
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #a777e3;
+}
+
+.status-message {
+    margin-top: 1vw; /* Reduced from 1.2vw */
+    font-size: 0.85rem; /* Reduced from 0.9rem */
+    color: #333;
+}
+
+/* Customize the calendar container */
+.calendar-group {
+    margin-bottom: 1vw; /* Reduced from 1.2vw */
+}
+
+/* Customize the calendar header */
+.rbc-toolbar {
+    background-color: #6e8efb;
+    color: #fff;
+    padding: 0.6vw; /* Reduced from 0.7vw */
+    border-radius: 0.25vw; /* Reduced from 0.3vw */
+}
+
+/* Customize navigation buttons */
+.rbc-btn-group button {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+}
+
+.rbc-btn-group button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Customize the calendar grid */
+.rbc-month-view {
+    background-color: #f9f9f9;
+}
+
+/* Customize event slots */
+.rbc-event {
+    background-color: #a777e3;
+    border: none;
+    border-radius: 0.25vw; /* Reduced from 0.3vw */
+    padding: 0.25vw; /* Reduced from 0.3vw */
+    color: #fff;
+}
+
+/* Highlight selected event */
+.rbc-event-selected {
+    background-color: #ffcc00;
+}
+
+/* Adjust font sizes and colors */
+.rbc-month-view,
+.rbc-time-view {
+    font-size: 0.75rem; /* Reduced from 0.8rem */
+    color: #333;
+}
+
+/* Style the selected date display */
+.selected-date {
+    margin-top: 0.6vw; /* Reduced from 0.7vw */
+    font-size: 0.85rem; /* Reduced from 0.9rem */
+    color: #333;
+}
+
+/* Styles for the slots group */
+.slots-group {
+    margin-bottom: 1vw; /* Reduced from 1.2vw */
+}
+
+.slots-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.slot-date-group {
+    margin-bottom: 1.5vw; /* Reduced from 1.8vw */
+}
+
+.slot-date-group h3 {
+    font-size: 0.9rem; /* Reduced from 1rem */
+    color: #333;
+    margin-bottom: 0.6vw; /* Reduced from 0.7vw */
+    text-align: center;
+}
+
+.slot-times {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8vw 1vw; /* Reduced from 1vw 1.2vw */
+    justify-content: center;
+}
+
+.slot-button {
+    padding: 0.6vw 1vw; /* Reduced from 0.7vw 1.2vw */
+    font-size: 0.85rem; /* Reduced from 0.9rem */
+    background-color: #f0f0f0;
+    border: 0.07vw solid #ddd; /* Reduced from 0.08vw */
+    border-radius: 0.25vw; /* Reduced from 0.3vw */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.slot-button:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-0.08vw); /* Reduced from 0.1vw */
+}
+
+.slot-button.selected {
+    background-color: #6e8efb;
+    color: #fff;
+    border-color: #6e8efb;
+}
+
+.selected-date {
+    margin-top: 0.8vw; /* Reduced from 1vw */
+    font-size: 0.85rem; /* Reduced from 0.9rem */
+    color: #333;
+    text-align: center;
+}
+
+/* Adjust form submit button when disabled */
+.btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+.logo-container{
+    
+    padding: 1vw;
+    align-items: center;
+    display: flex;
+    gap: 1vw;
+    width: 95%;
+
+    justify-content: center;
+    position: absolute;
+    top: 1vh;
+    left: 0;
+   
+}
+.logo-image{
+    width: 4vw;
+    height: 4vw;
+    margin-left: -2vw;
+}
+.logo-text{
+    font-size: 1.5vw;
+    font-weight: 800;
+}
+
+.testimonial-container {
+    display: flex;
+    font-family: 'Arial', sans-serif; /* Change to a more interesting font */
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.testimonial-list {
+    width: 30%;
+    background-color: #f0f0f0;
+    padding: 10px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    animation: slideIn 1s ease-in-out;
+}
+
+.testimonial-content {
+    width: 70%;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    transition: opacity 0.5s ease-in-out;
+}
+
+#testimonial-text {
+    font-size: 1.2em;
+    color: #333;
+}
+
+#testimonial-author {
+    font-size: 1em;
+    color: #777;
+    text-align: right;
+    margin-top: 10px;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.social-icons {
+    margin-top: 30px;
+    text-align: center;
+    position: absolute;
+    bottom: 5vh;
+    left: 0;
+    width: 100%;
+}
+.social-icons a {
+    display: inline-block;
+    margin: 0 20px;
+    transition: opacity 0.3s;
+}
+.social-icons a:hover {
+    opacity: 0.7;
+}
+.social-icons img {
+    width: 24px;
+    height: 24px;
+}
