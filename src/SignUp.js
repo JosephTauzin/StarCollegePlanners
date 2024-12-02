@@ -23,7 +23,7 @@ function SignUp() {
       subtitle: "— Mark P.",
     },
     {
-      title: "A must-attend for professionals.",
+      title: "A must-attend for professionals who need some guideness with reducing college costs.",
       subtitle: "— Casey M.",
     },
     // Add more testimonials as needed
