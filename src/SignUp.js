@@ -4,6 +4,7 @@ import axios from 'axios';
 import './SignUp.css'; // For custom styles
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from './assets/Logo.png';
+import { Link } from 'react-router-dom';
 
 function SignUp() {
   // State for the form data
@@ -29,21 +30,25 @@ function SignUp() {
   ];
 
   // Available slots grouped by date
-  const availableSlots = [
-    {
-      date: 'November 25, 2023',
-      times: ['10:00 AM', '2:00 PM'],
-    },
-    {
-      date: 'December 2, 2023',
-      times: ['11:00 AM', '3:00 PM'],
-    },
-    {
-      date: 'December 9, 2023',
-      times: ['9:00 AM', '1:00 PM'],
-    },
-    // Add more slots as needed
-  ];
+
+  const [availableSlots, setAvailableSlots] = useState(
+    [
+        {
+          date: 'November 25, 2023',
+          times: ['10:00 AM', '2:00 PM'],
+        },
+        {
+          date: 'December 2, 2023',
+          times: ['11:00 AM', '3:00 PM'],
+        },
+        {
+          date: 'December 9, 2023',
+          times: ['9:00 AM', '1:00 PM'],
+        },
+        // Add more slots as needed
+      ]
+  )
+ 
 
   // State to manage the current testimonial index
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -87,21 +92,125 @@ function SignUp() {
       });
   };
 
+function getEmailFromUrl() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const email = urlParams.get('email');
+  return email;
+}
+
+function getNameFromUrl(){
+  const urlParams = new URLSearchParams(window.location.search);
+  const name = urlParams.get('name');
+  return name;
+}
+
+function transformDates(jsonData) {
+    const data = jsonData
+    const groupedDates = new Map();
+  
+    data.Dates.forEach(dateTimeStr => {
+      // Replace space with 'T' to make it ISO 8601 compliant
+      const dateTimeISO = dateTimeStr.replace(' ', 'T');
+      const dateObj = new Date(dateTimeISO);
+  
+      // Extract the date part as a key
+      const dateKey = dateObj.toDateString();
+  
+      // Format the time in 'h:mm A' format
+      const timeOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
+      const timeStr = dateObj.toLocaleTimeString('en-US', timeOptions);
+  
+      if (groupedDates.has(dateKey)) {
+        groupedDates.get(dateKey).push(timeStr);
+      } else {
+        groupedDates.set(dateKey, [timeStr]);
+      }
+    });
+  
+    const availableSlots = [];
+  
+    groupedDates.forEach((times, dateKey) => {
+      const dateObj = new Date(dateKey);
+      const dateOptions = { month: 'long', day: 'numeric', year: 'numeric' };
+      const dateStr = dateObj.toLocaleDateString('en-US', dateOptions);
+  
+      availableSlots.push({
+        date: dateStr,
+        times: times
+      });
+    });
+  
+    return availableSlots;
+  }
+
+useEffect(() => {
+    const emailFromUrl = getEmailFromUrl();
+    const nameFromUrl = getNameFromUrl()
+    if (emailFromUrl) {
+      setFormData((prevData) => ({ ...prevData, email: emailFromUrl }));
+    }
+    if(nameFromUrl){
+        setFormData((prevData) => ({ ...prevData, name: nameFromUrl }));
+    }
+  }, []);
+
+  /*
+      
+          <nav className="flat-navbar" style={{paddingBottom:'2vh', paddingTop:'2vh', backgroundColor:'white'}}>
+          <div className="container-align">
+            <div className="navbar-logo">
+  
+            </div>
+            <ul className="navbar-menu">
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/process">Process and Thesis</Link></li>
+              <li><Link to="/case-studies">Case Studies</Link></li>
+              <li><Link to="/online-portal">Online Portal</Link></li>
+              <li><Link to="/signup" className="btn btn-primary navbar-btn">Sign Up for a Webinar</Link></li>
+            </ul>
+          </div>
+        </nav>
+  */
+        const [jsonData, setJsonData] = useState(null);
+
+        useEffect(() => {
+          const fetchJsonFromUrl = async () => {
+            try {
+              const response = await fetch('https://firebasestorage.googleapis.com/v0/b/tutorspace-7a7f1.appspot.com/o/StarCollegePlanners%2FWebinarDates.json?alt=media&token=2a74798b-938d-4d77-92f0-a17db6200be1');
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              const data = await response.json();
+              setJsonData(data);
+              setAvailableSlots(transformDates(data));
+              console.log('availableSlots',availableSlots)
+            } catch (error) {
+              console.error('Error fetching JSON from URL:', error);
+            }
+          };
+      
+          fetchJsonFromUrl();
+        }, []);
+
+        console.log('jsonDates', jsonData)
+      
+ 
   return (
+
+    <div>
+
     <motion.div
       className="signup-page"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
     >
-      <div className="container">
+      <div className="containerSignUp">
         {/* Left Side - Testimonials */}
         <div className="left-side">
-        <div className='logo-container'>
-        
-            <img  className= 'logo-image' src={logo} alt="logo" />
-            
-            <p className='logo-text'>Star College Webinar</p>
+        <div className='logo-container' onClick={() => window.location.href = 'https://gametheory.college'} style={{ cursor: 'pointer' }}>
+            <img className='logo-image' src={require('./assets/LogoWithGT.png')} alt="logo" />
+
         </div>
           <AnimatePresence mode="wait">
             <motion.div
@@ -112,22 +221,22 @@ function SignUp() {
               exit={{ opacity: 0, x: 50 }}
               transition={{ duration: 0.8 }}
             >
-              <h1>{testimonials[currentTestimonial].title}</h1>
+              <h1 style={{color:'black'}}>{testimonials[currentTestimonial].title}</h1>
               <p>{testimonials[currentTestimonial].subtitle}</p>
             </motion.div>
           </AnimatePresence>
         
           <div class="social-icons">
-                <a href="https://www.facebook.com/GameTheoryPlanning" target="_blank">
+                <a href="https://www.facebook.com/gametheorycollege" target="_blank">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Facebook_Logo_2023.png" alt="Facebook"/>
                 </a>
-                <a href="https://www.twitter.com/GameTheoryPlan" target="_blank">
+                <a href="https://www.x.com/gtheorycollege" target="_blank">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" alt="X"/>
                 </a>
-                <a href="https://www.instagram.com/GameTheoryPlanning" target="_blank">
+                <a href="https://www.instagram.com/gametheorycollege" target="_blank">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"/>
                 </a>
-                <a href="https://www.linkedin.com/company/gametheoryplanning" target="_blank">
+                <a href="https://www.linkedin.com/company/game-theory-college-planners/" target="_blank">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" alt="LinkedIn"/>
                 </a>
             </div>
@@ -148,7 +257,7 @@ function SignUp() {
         }
         <div className="right-side">
           
-          <form onSubmit={handleSubmit}>
+          <form action="https://usebasin.com/f/a645cfae4253" method="POST">
             <motion.div
               className="form-group"
               initial={{ opacity: 0, x: 50 }}
@@ -256,6 +365,7 @@ function SignUp() {
         </div>
       </div>
     </motion.div>
+    </div>
   );
 }
 

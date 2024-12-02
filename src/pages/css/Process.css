@@ -1,0 +1,225 @@
+/* src/ProcessAndThesis.css */
+
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    color: #2d3436;
+    background-color: #f0f2f5;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 0;
+  }
+  
+  h1, h2, h3 {
+    color: #0984e3;
+  }
+  
+  p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #2d3436;
+  }
+  
+  .btn {
+    display: inline-block;
+    background-color: #0984e3;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .btn:hover {
+    background-color: #74b9ff;
+  }
+  
+  .btn-secondary {
+    background-color: #fdcb6e;
+    color: #2d3436;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #ffeaa7;
+  }
+  
+  .btn-lg {
+    padding: 15px 30px;
+    font-size: 1.1em;
+  }
+  
+  /* Header Section */
+  .pt-header {
+    background-color: #ffffff;
+    padding: 60px 0;
+    text-align: center;
+  }
+  
+  .pt-header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+  }
+  
+  .pt-header p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .pt-header .scroll-down {
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+  
+  .steps {
+    margin-top: 30px;
+  }
+  
+  .steps p {
+    font-size: 1.1em;
+  }
+  
+  /* Insights Section */
+  .insights {
+    padding: 40px 0;
+  }
+  
+  .insights h2 {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  
+  .insight-item {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #dfe6e9;
+    padding-bottom: 20px;
+  }
+  
+  .insight-item h3 {
+    font-size: 1.8em;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .toggle-input {
+    display: none;
+  }
+  
+  .toggle-label {
+    display: block;
+    position: relative;
+  }
+  
+  .toggle-label::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 1.5em;
+    transition: transform 0.3s ease;
+  }
+  
+  .toggle-input:checked + .toggle-label::after {
+    transform: rotate(45deg);
+  }
+  
+  .insight-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+  
+  .toggle-input:checked ~ .insight-content {
+    max-height: 1000px; /* Set a high value to accommodate content */
+  }
+  
+  .insight-content p {
+    margin-bottom: 10px;
+  }
+  
+  .insight-content a.btn {
+    margin-top: 15px;
+  }
+  
+  /* Conclusion and Options */
+  .conclusion, .options, .cta, .case-studies {
+    margin-top: 60px;
+  }
+  
+  .conclusion h2, .options h2, .cta h2, .case-studies h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .conclusion ol {
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .options h3 {
+    font-size: 1.5em;
+    margin-top: 30px;
+  }
+  
+  .options p {
+    margin-bottom: 15px;
+  }
+  
+  .cta p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+  
+  .cta .btn {
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+  
+  /* Case Studies */
+  .case-studies .case-study {
+    margin-bottom: 40px;
+  }
+  
+  .case-studies .case-study h3 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+  }
+  
+  .case-studies .case-study p {
+    font-size: 1em;
+    margin-bottom: 10px;
+  }
+  
+  .case-studies .case-study img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+  }
+  
+  /* Media Queries */
+  @media (max-width: 768px) {
+    .pt-header h1 {
+      font-size: 2em;
+    }
+  
+    .insight-item h3 {
+      font-size: 1.5em;
+    }
+  
+    .conclusion h2, .options h2, .cta h2, .case-studies h2 {
+      font-size: 1.8em;
+    }
+  }
+  
