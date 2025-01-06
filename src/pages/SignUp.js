@@ -1,9 +1,9 @@
 // src/SignUp.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './SignUp.css'; // For custom styles
+import './css/SignUp.css'; // For custom styles
 import { motion, AnimatePresence } from 'framer-motion';
-import logo from './assets/Logo.png';
+
 import { Link } from 'react-router-dom';
 
 function SignUp() {
@@ -208,9 +208,8 @@ useEffect(() => {
       <div className="containerSignUp">
         {/* Left Side - Testimonials */}
         <div className="left-side">
-        <div className='logo-container' onClick={() => window.location.href = 'https://gametheory.college'} style={{ cursor: 'pointer' }}>
+        <div className='logo-container' onClick={() => window.location.href = '/'} style={{ cursor: 'pointer' }}>
             <img className='logo-image' src={require('./assets/LogoWithGT.png')} alt="logo" />
-
         </div>
           <AnimatePresence mode="wait">
             <motion.div

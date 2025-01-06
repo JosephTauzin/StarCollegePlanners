@@ -7,10 +7,10 @@ function Process() {
   return (
     <div className="process-and-thesis">
           {/* Navbar */}
-          <nav className="flat-navbar" style={{marginBottom:'2vh', paddingTop:'2vh'}}>
+          <nav className="flat-navbar" style={{ paddingTop:'2vh', backgroundColor:'white'}}>
         <div className="container-align">
           <div className="navbar-logo">
-            <img style={{width:'8vw', height:'20vh', position:'absolute', marginLeft:'-30vw', marginTop:'-1vh'}} src={require('./assets/Logo 6.png')} alt="Game Theory College Planners" />
+            <img style={{width:'8vw', height:'20vh', position:'absolute', marginLeft:'-30vw', marginTop:'-1vh'}} src={require('./assets/LogoWithGT.png')} alt="Game Theory College Planners" />
           </div>
           <ul className="navbar-menu">
             <li><Link to="/" className={window.location.pathname === '/' ? 'active' : 'not_active'}>Home</Link></li>
@@ -25,7 +25,7 @@ function Process() {
       <header className="pt-header">
         <div className="container">
           <h1>Our Process and Thesis</h1>
-          <p>Written and presented by Danny Umali, founder of Game Theory College Planners.</p>
+          
           <p className="scroll-down">Keep scrolling until you get to the end</p>
           <p>
             If you would rather watch the video of our process and thesis,{' '}
@@ -36,7 +36,7 @@ function Process() {
               <strong>Step 1:</strong> Educate yourself with our content and videos.
             </p>
             <p>
-              <strong>Step 2:</strong> Click <Link to="/get-a-price">"Get a Price"</Link> and take the quiz to see if we are a good fit.
+              <strong>Step 2:</strong> Click <Link to="https://gtheory.college/workshopquiz?_gl=1*17m9uzt*_gcl_au*MTM1MDExOTI1NS4xNzI4MTU1Mzgy*_ga*MTMwNjkzMzc1NC4xNzI4MTU1Mzgy*_ga_4FQG4YTZ2H*MTczNDM2NTUwNy4yMy4xLjE3MzQzNjU1NTguOS4wLjA.">"Get a Price"</Link> and take the quiz to see if we are a good fit.
             </p>
           </div>
         </div>
@@ -45,13 +45,13 @@ function Process() {
       {/* Insights Section */}
       <section className="insights">
         <div className="container">
-          <h2>Here are 7 unique and useful insights that will completely change everything…</h2>
+       
 
           {/* Insight Items */}
           <div className="insight-item">
-            <input type="checkbox" id="insight1" className="toggle-input" />
-            <label htmlFor="insight1" className="toggle-label">
-              <h3>1. Understanding 4-year graduation rates will significantly reduce your college expense.</h3>
+           
+            <label className="toggle-label">
+              <h3 style={{marginBottom:'5vh'}}>Understanding 4-year graduation rates will significantly reduce your college expense.</h3>
             </label>
             <div className="insight-content">
               <p><strong>Old Way:</strong> We evaluate college cost by “cost of going.” We pay zero attention to 4-year graduation rates.</p>
@@ -60,7 +60,7 @@ function Process() {
               <p><strong>New Result:</strong> The national average of a 4-year graduation is 19%*. By employing an on-time graduation strategy, over 90% of our students graduate in 4 years and many get their degree at the lowest possible cost.</p>
               <p><em>Source: Complete College America - Data Dashboard</em></p>
               {/* Additional content can be added here */}
-              <Link to="/get-a-price" className="btn btn-primary">Get a Price</Link>
+              <Link to="https://gtheory.college/workshopquiz?_gl=1*17m9uzt*_gcl_au*MTM1MDExOTI1NS4xNzI4MTU1Mzgy*_ga*MTMwNjkzMzc1NC4xNzI4MTU1Mzgy*_ga_4FQG4YTZ2H*MTczNDM2NTUwNy4yMy4xLjE3MzQzNjU1NTguOS4wLjA." className="btn btn-primary">Get a Price</Link>
             </div>
           </div>
 
@@ -90,27 +90,210 @@ function Process() {
             <p>You can do it yourself, work with your school counselor, or rely on traditional financial advisors, but these methods can be time-consuming and costly.</p>
             <h3>Option 2: The Easy Way</h3>
             <p>Work with Game Theory College Planners and get 4 years of college for the price of 2, sometimes even less, using advanced academic strategies without the sleepless nights, frustration, and BS.</p>
-            <Link to="/get-a-price" className="btn btn-secondary">Get a Price</Link>
-          </div>
+                     </div>
 
           {/* Call to Action */}
           <div className="cta">
-            <h2>This is for you if...</h2>
+            <h2 style={{color:'#0984e3'}}>This is for you if...</h2>
             <p>If you are the parents of high school sophomores, juniors, or seniors who want to see their student go into the world and reap all of the rewards of having a degree without the debt.</p>
             <p>If you feel that every student, regardless of circumstance, deserves the best shot possible at the best education they can get, you are definitely at the right place.</p>
-            <Link to="/get-a-price" className="btn btn-primary btn-lg">Get Started Now</Link>
+            <Link to="/signup" className="btn btn-secondary btn-lg">Get Started Now</Link>
           </div>
 
           {/* Case Studies */}
           <div className="case-studies">
-            <h2>Award Analysis Case Studies</h2>
+            <h1>Award Analysis Case Studies</h1>
             {/* Case Study 1 */}
             <div className="case-study">
-              <h3>Sheridan Lillie Case Study</h3>
+              <h3 style={{marginBottom:'5vh'}}>Sheridan Lillie Case Study</h3>
               <p><strong>Retail Cost (Sticker Price):</strong></p>
-              <img src="https://via.placeholder.com/600x400?text=Retail+Cost+Chart" alt="Retail Cost Chart" />
-              <p><strong>Wholesale Cost (Out the Door Price):</strong></p>
-              <img src="https://via.placeholder.com/600x400?text=Wholesale+Cost+Chart" alt="Wholesale Cost Chart" />
+              <div className="bar-graph" style={{
+                height: "70vh", 
+                width: "100%", 
+                display: "flex",
+                alignItems: "flex-end",
+                justifyContent: "space-between",
+                padding: "20px",
+                backgroundColor: "#f8f9fa",
+                borderRadius: "8px",
+                gap: "1vw"
+              }}>
+                {[
+                  {
+                    school: "Cornell",
+                    retailCost: 75000,
+                    wholesaleCost: 25000,
+                  },
+                  {
+                    school: "Harvard",
+                    retailCost: 78000,
+                    wholesaleCost: 22000,
+                  },
+                  {
+                    school: "Yale",
+                    retailCost: 77000,
+                    wholesaleCost: 24000,
+                  },
+                  {
+                    school: "Princeton",
+                    retailCost: 76000,
+                    wholesaleCost: 21000,
+                  },
+                  {
+                    school: "Stanford",
+                    retailCost: 79000,
+                    wholesaleCost: 23000,
+                  },
+                  {
+                    school: "MIT",
+                    retailCost: 77500,
+                    wholesaleCost: 26000,
+                  }
+                ].map((item, index) => (
+                  <div key={index} style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    width: "15%",
+                    height: "100%"
+                  }}>
+                    <div style={{
+                      width: "100%", 
+                      display: "flex", 
+                      gap: "0.5vw",
+                      height: "100%",
+                      alignItems: "flex-end"
+                    }}>
+                      <div 
+                        style={{
+                          width: "45%",
+                          height: `${(item.retailCost/80000) * 50}vh`,
+                          backgroundColor: "#e74c3c",
+                          borderRadius: "8px 8px 0 0",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "white",
+                          fontSize: "1vw",
+                          fontWeight: "bold",
+                          textAlign: "center",
+                          padding: "5px"
+                        }}
+                        onMouseEnter={(e) => {
+                          e.target.style.opacity = "0.8";
+                          e.target.style.transform = "scaleY(1.05)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.opacity = "1";
+                          e.target.style.transform = "scaleY(1)";
+                        }}
+                      >
+                        ${item.retailCost.toLocaleString()}
+                      </div>
+                      <div 
+                        style={{
+                          width: "45%",
+                          height: `${(item.wholesaleCost/80000) * 50}vh`,
+                          backgroundColor: "#27ae60",
+                          borderRadius: "8px 8px 0 0",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "white",
+                          fontSize: "1vw",
+                          fontWeight: "bold",
+                          textAlign: "center",
+                          padding: "5px"
+                        }}
+                        onMouseEnter={(e) => {
+                          e.target.style.opacity = "0.8";
+                          e.target.style.transform = "scaleY(1.05)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.opacity = "1";
+                          e.target.style.transform = "scaleY(1)";
+                        }}
+                      >
+                        ${item.wholesaleCost.toLocaleString()}
+                      </div>
+                    </div>
+                    <div style={{
+                      marginTop: "1vh", 
+                      fontWeight: "bold",
+                      fontSize: "1vw",
+                      textAlign: "center"
+                    }}>
+                      {item.school}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div style={{
+                display: "flex",
+                justifyContent: "center",
+                gap: "2vw",
+                marginTop: "2vh"
+              }}>
+                <div style={{display: "flex", alignItems: "center", gap: "0.5vw"}}>
+                  <div style={{width: "20px", height: "20px", backgroundColor: "#e74c3c", borderRadius: "4px"}}></div>
+                  <span>Retail Cost</span>
+                </div>
+                <div style={{display: "flex", alignItems: "center", gap: "0.5vw"}}>
+                  <div style={{width: "20px", height: "20px", backgroundColor: "#27ae60", borderRadius: "4px"}}></div>
+                  <span>Wholesale Cost</span>
+                </div>
+              </div>
+              <p style={{marginTop: "5vh"}}><strong>Wholesale Cost (Out the Door Price):</strong></p>
+              <div style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "2vh",
+                marginTop: "2vh",
+                marginBottom: "2vh"
+              }}>
+                {[
+                  { school: "Johns Hopkins University", wholesaleCost: 18072 },
+                  { school: "University of Miami", wholesaleCost: 22150 },
+                  { school: "Boston University", wholesaleCost: 25430 },
+                  { school: "Emory University", wholesaleCost: 19845 },
+                  { school: "University of Southern California", wholesaleCost: 23750 }
+                ].map((item, index) => (
+                  <div key={index} style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "1vw"
+                  }}>
+                    <div style={{width: "20%", fontSize: "0.9vw"}}>{item.school}</div>
+                    <div style={{
+                      width: `${(item.wholesaleCost / 30000) * 60}%`,
+                      backgroundColor: "#27ae60",
+                      height: "30px",
+                      borderRadius: "4px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "white",
+                      fontSize: "0.9vw",
+                      transition: "all 0.3s ease",
+                      cursor: "pointer"
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.opacity = "0.8";
+                      e.target.style.transform = "scaleX(1.05)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.opacity = "1";
+                      e.target.style.transform = "scaleX(1)";
+                    }}>
+                      ${item.wholesaleCost.toLocaleString()}
+                    </div>
+                  </div>
+                ))}
+              </div>
               <p>*2021 Award letter data provided by the Lillie Family. Cost includes tuition, room and board, books, mandatory fees, and personal expenses.</p>
             </div>
             {/* Repeat for additional case studies */}

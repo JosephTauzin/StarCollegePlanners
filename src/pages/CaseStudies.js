@@ -41,7 +41,7 @@ function CaseStudies() {
         <nav className="flat-navbar" style={{backgroundColor:'white', marginTop:'-7vh', paddingBottom:'2vh' }}>
         <div className="container-align">
           <div className="navbar-logo">
-            <img style={{width:'8vw', height:'20vh', position:'absolute', marginLeft:'-30vw', marginTop:'-1vh'}} src={require('./assets/Logo 6.png')} alt="Game Theory College Planners" />
+            <img style={{width:'8vw', height:'20vh', position:'absolute', marginLeft:'-30vw', marginTop:'-1vh'}} src={require('./assets/LogoWithGT.png')} alt="Game Theory College Planners" />
           </div>
           <ul className="navbar-menu">
             <li><Link to="/" className={window.location.pathname === '/' ? 'active' : 'not_active'}>Home</Link></li>
@@ -75,9 +75,7 @@ function CaseStudies() {
                   <strong>Total Savings:</strong> {caseStudy.savings}
                 </li>
               </ul>
-              <Link to="/get-a-price" className="btn btn-primary">
-                Get a Price Estimate
-              </Link>
+         
             </div>
           ))}
         </div>
@@ -86,9 +84,9 @@ function CaseStudies() {
         <div className="cta">
           <h2>Ready to Save on College?</h2>
           <p>
-            Take our quiz to see how much you can save and whether we're a good fit for your college planning needs.
+            Sign up for a webinar to learn how save the most money possible on College!
           </p>
-          <Link to="/get-a-price" className="btn btn-secondary btn-lg">
+          <Link to="/signup" className="btn btn-secondary btn-lg">
             Get Started Now
           </Link>
         </div>

@@ -5,7 +5,7 @@ body {
     margin: 0;
     font-family: 'Nunito', sans-serif;
     color: #2d3436;
-    background-color: #f0f2f5;
+    background-color: white;
   }
   
   a {
@@ -14,8 +14,8 @@ body {
   }
   
   .container {
-    width: 90%;
-    max-width: 800px;
+    width: 100%;
+
     margin: 0 auto;
     padding: 20px 0;
   }
@@ -100,9 +100,9 @@ body {
   }
   
   .insight-item {
-    margin-bottom: 30px;
-    border-bottom: 1px solid #dfe6e9;
-    padding-bottom: 20px;
+    margin-bottom: 5vh;
+   
+    padding-bottom: 3vh;
   }
   
   .insight-item h3 {
@@ -115,33 +115,17 @@ body {
     display: none;
   }
   
-  .toggle-label {
-    display: block;
-    position: relative;
-  }
+ 
   
-  .toggle-label::after {
-    content: '+';
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 1.5em;
-    transition: transform 0.3s ease;
-  }
   
-  .toggle-input:checked + .toggle-label::after {
-    transform: rotate(45deg);
-  }
-  
+
   .insight-content {
-    max-height: 0;
+    max-height: 1000px; /* Set a high value to accommodate content */
     overflow: hidden;
     transition: max-height 0.5s ease;
   }
   
-  .toggle-input:checked ~ .insight-content {
-    max-height: 1000px; /* Set a high value to accommodate content */
-  }
+  
   
   .insight-content p {
     margin-bottom: 10px;
@@ -189,6 +173,7 @@ body {
   
   /* Case Studies */
   .case-studies .case-study {
+    background-color: white;
     margin-bottom: 40px;
   }
   
