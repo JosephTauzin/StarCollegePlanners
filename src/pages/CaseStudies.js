@@ -86,7 +86,7 @@ function CaseStudies() {
           <p>
             Sign up for a webinar to learn how save the most money possible on College!
           </p>
-          <Link to="/signup" className="btn btn-secondary btn-lg">
+          <Link to="/signup" className="btn btn-secondary btn-lg" style={{width:'30vw'}}>
             Get Started Now
           </Link>
         </div>

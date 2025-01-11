@@ -38,7 +38,7 @@ function Home() {
           <p className="hero-subtitle animate-fade-in-delay">
             Discover how to know which colleges will admit your student and how much they will award before you even apply.
           </p>
-          <Link to="/signup" className="btn btn-secondary btn-lg animate-bounce" style={{width:'30vw'}}>
+          <Link to="/signup" className="btn btn-secondary btn-lg animate-bounce btn-lg" style={{width:'30vw'}}>
             Sign Up for a Webinar
           </Link>
  
@@ -81,121 +81,184 @@ function Home() {
           </div>
         </div>
 
-      {/* Case Studies */}
-      <section className="case-studies" >
-        <div className="container">
-          <h1 className="section-title" style={{color:'black'}}>Success Stories</h1>
-          <p className="section-subtitle">See how we've helped families save on college education.</p>
+        {/* Case Studies */}
+        <section className="case-studies">
+          <div className="container">
+            <h1 className="section-title" style={{ color: 'black' }}>Success Stories</h1>
+            <p className="section-subtitle">See how we've helped families save on college education.</p>
 
-          {/* Case Studies Grid */}
-          <div className="case-studies-grid">
-            {/* Case Study Item */}
-            <div className="case-study-item animate-zoom-in">
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/09/Johns_Hopkins_University%27s_Academic_Seal.svg/130px-Johns_Hopkins_University%27s_Academic_Seal.svg.png" alt="University Logo" />
+            {/* Case Studies Grid */}
+            <div className="case-studies-grid">
+              {/* Case Study #1 */}
+              <div className="case-study-item animate-zoom-in">
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/en/thumb/0/09/Johns_Hopkins_University%27s_Academic_Seal.svg/130px-Johns_Hopkins_University%27s_Academic_Seal.svg.png"
+                    alt="Johns Hopkins University Logo"
+                  />
+                </div>
+                <h3>$271,748 Saved Over 4 Years</h3>
+                <p>
+                  Daniel got 4 years of college for less than the price of 1 at Johns Hopkins University.
+                </p>
+                <p>
+                  <strong>Original Cost of Attendance:</strong> $86,009<br />
+                  <strong>Gift Aid Package:</strong> $67,937/year<br />
+                  <strong>New Cost of Attendance:</strong> $18,072
+                </p>
               </div>
-              <h3>$271,748 Saved Over 4 Years</h3>
-              <p>
-                Daniel secured a 4-year college education for less than the price of one year at Johns Hopkins University.
-              </p>
-              <p><strong>New Cost of Attendance:</strong> $18,072</p>
+
+              {/* Case Study #2 */}
+              <div className="case-study-item animate-zoom-in">
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  {/* Replace with actual Wesleyan College logo if desired */}
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7d/Wesleyan_College_seal.png/150px-Wesleyan_College_seal.png"
+                    alt="Wesleyan College Logo"
+                  />
+                </div>
+                <h3>$96,608 Saved Over 4 Years</h3>
+                <p>
+                  Sheridan got 4 years of college almost down to the price of 1 at Wesleyan College.
+                </p>
+                <p>
+                  <strong>Original Cost of Attendance:</strong> $35,555<br />
+                  <strong>Gift Aid Package:</strong> $24,152/year<br />
+                  <strong>New Cost of Attendance:</strong> $11,401
+                </p>
+              </div>
+
+              {/* Case Study #3 */}
+              <div className="case-study-item animate-zoom-in">
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  {/* Replace with actual U of Arkansas Pine Bluff logo if desired */}
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/en/thumb/0/01/University_of_Arkansas_at_Pine_Bluff_Legacy_Seal.svg/150px-University_of_Arkansas_at_Pine_Bluff_Legacy_Seal.svg.png"
+                    alt="University of Arkansas Pine Bluff Logo"
+                  />
+                </div>
+                <h3>$102,508 Saved Over 4 Years</h3>
+                <p>
+                  Christopher got 4 years of college down to zero cost at the University of Arkansas at Pine Bluff.
+                </p>
+                <p>
+                  <strong>Original Cost of Attendance:</strong> $25,627<br />
+                  <strong>Gift Aid Package:</strong> $25,627/year<br />
+                  <strong>New Cost of Attendance:</strong> $0
+                </p>
+              </div>
+
+              {/* Case Study #4 */}
+              <div className="case-study-item animate-zoom-in">
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  {/* Replace with actual University of Alabama logo if desired */}
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/University_of_Alabama_%28logo%29.png/800px-University_of_Alabama_%28logo%29.png"
+                    alt="University of Alabama Logo"
+                  />
+                </div>
+                <h3>$96,000 Saved Over 4 Years</h3>
+                <p>
+                  Anna got 4 years of college for less than the price of 2 years at the University of Alabama.
+                </p>
+                <p>
+                  <strong>Original Cost of Attendance:</strong> $40,160<br />
+                  <strong>Gift Aid Package:</strong> $24,000/year<br />
+                  <strong>New Cost of Attendance:</strong> $16,160
+                </p>
+              </div>
+
+              {/* Case Study #5 */}
+              <div className="case-study-item animate-zoom-in">
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  {/* Replace with actual Georgia Tech logo if desired */}
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Georgia_Tech_seal.svg/150px-Georgia_Tech_seal.svg.png"
+                    alt="Georgia Tech Logo"
+                  />
+                </div>
+                <h3>$115,008 Saved Over 4 Years</h3>
+                <p>
+                  Emily got 4 years of college for less than zero cost at Georgia Tech, plus a stipend and a new laptop.
+                </p>
+                <p>
+                  <strong>Original Cost of Attendance:</strong> $28,772<br />
+                  <strong>Gift Aid Package:</strong> $28,772/year<br />
+                  <strong>Additional Stipend:</strong> $500/month + $1,700 laptop<br />
+                  <strong>New Cost of Attendance:</strong> -$6,000
+                </p>
+              </div>
+
+              {/* Case Study #6 */}
+              <div className="case-study-item animate-zoom-in">
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  {/* Replace with actual Oglethorpe University logo if desired */}
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/Olgethorpe_University_seal.jpeg/220px-Olgethorpe_University_seal.jpeg"
+                    alt="Oglethorpe University Logo"
+                  />
+                </div>
+                <h3>$142,336 Saved Over 4 Years</h3>
+                <p>
+                  Cameron got 4 years of college for less than the price of 2 at Oglethorpe University.
+                </p>
+                <p>
+                  <strong>Original Cost of Attendance:</strong> $54,960<br />
+                  <strong>Gift Aid Package:</strong> $35,584/year<br />
+                  <strong>New Cost of Attendance:</strong> $19,376
+                </p>
+              </div>
+
+              {/* Case Study #7 */}
+              <div className="case-study-item animate-zoom-in">
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  {/* Replace with actual Stetson University logo if desired */}
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a8/Stetson_Univ_Seal.svg/150px-Stetson_Univ_Seal.svg.png"
+                    alt="Stetson University Logo"
+                  />
+                </div>
+                <h3>$156,000 Saved Over 4 Years</h3>
+                <p>
+                  Samantha got 4 years of college for less than the price of 2 at Stetson University.
+                </p>
+                <p>
+                  <strong>Original Cost of Attendance:</strong> $64,040<br />
+                  <strong>Gift Aid Package:</strong> $39,000/year<br />
+                  <strong>New Cost of Attendance:</strong> $25,040
+                </p>
+              </div>
+
+              {/* Case Study #8 */}
+              <div className="case-study-item animate-zoom-in">
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  {/* Replace with actual USC logo if desired */}
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/en/thumb/b/bc/University_of_Southern_California_seal.svg/150px-University_of_Southern_California_seal.svg.png"
+                    alt="USC Logo"
+                  />
+                </div>
+                <h3>$262,208 Saved Over 4 Years</h3>
+                <p>
+                  Maria got 4 years of college for less than the price of 1 year at the University of Southern California.
+                </p>
+                <p>
+                  <strong>Original Cost of Attendance:</strong> $81,052<br />
+                  <strong>Gift Aid & Work Study Package:</strong> $68,052/year<br />
+                  <strong>New Cost of Attendance:</strong> $13,000
+                </p>
+              </div>
             </div>
 
-            <div className="case-study-item animate-zoom-in">
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Harvard_University_coat_of_arms.svg/150px-Harvard_University_coat_of_arms.svg.png" alt="Harvard Logo" />
-              </div>
-              <h3>$198,000 Saved Over 4 Years</h3>
-              <p>
-                Sarah received a competitive financial aid package from Harvard, dramatically reducing her total cost of attendance.
-              </p>
-              <p><strong>New Cost of Attendance:</strong> $22,000</p>
-            </div>
-
-            <div className="case-study-item animate-zoom-in">
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Seal_of_Leland_Stanford_Junior_University.svg/150px-Seal_of_Leland_Stanford_Junior_University.svg.png" alt="Stanford Logo" />
-              </div>
-              <h3>$245,000 Saved Over 4 Years</h3>
-              <p>
-                Michael leveraged multiple merit scholarships to attend Stanford at a fraction of the sticker price.
-              </p>
-              <p><strong>New Cost of Attendance:</strong> $23,000</p>
-            </div>
-
-            <div className="case-study-item animate-zoom-in">
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/44/MIT_Seal.svg/300px-MIT_Seal.svg.png" alt="MIT Logo" />
-              </div>
-              <h3>$258,000 Saved Over 4 Years</h3>
-              <p>
-                Emma combined need-based aid and merit scholarships to make MIT surprisingly affordable.
-              </p>
-              <p><strong>New Cost of Attendance:</strong> $19,500</p>
-            </div>
-
-            <div className="case-study-item animate-zoom-in">
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Yale_University_Shield_1.svg/300px-Yale_University_Shield_1.svg.png" alt="Yale Logo" />
-              </div>
-              <h3>$234,000 Saved Over 4 Years</h3>
-              <p>
-                James utilized Yale's generous financial aid policies to significantly reduce his family's contribution.
-              </p>
-              <p><strong>New Cost of Attendance:</strong> $21,000</p>
-            </div>
-
-            <div className="case-study-item animate-zoom-in">
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/Duke_University_seal.svg/300px-Duke_University_seal.svg.png" alt="Duke Logo" />
-              </div>
-              <h3>$267,000 Saved Over 4 Years</h3>
-              <p>
-                Sophie strategically applied for institutional grants to make Duke University within reach.
-              </p>
-              <p><strong>New Cost of Attendance:</strong> $17,800</p>
-            </div>
-
-            <div className="case-study-item animate-zoom-in">
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Princeton_seal.svg/280px-Princeton_seal.svg.png" alt="Princeton Logo" />
-              </div>
-              <h3>$242,000 Saved Over 4 Years</h3>
-              <p>
-                Alex maximized Princeton's no-loan financial aid policy to minimize out-of-pocket costs.
-              </p>
-              <p><strong>New Cost of Attendance:</strong> $20,500</p>
-            </div>
-
-            <div className="case-study-item animate-zoom-in">
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/79/University_of_Chicago_shield.svg/260px-University_of_Chicago_shield.svg.png" alt="UChicago Logo" />
-              </div>
-              <h3>$255,000 Saved Over 4 Years</h3>
-              <p>
-                Rachel's strategic application timing helped secure maximum aid at University of Chicago.
-              </p>
-              <p><strong>New Cost of Attendance:</strong> $18,500</p>
-            </div>
-
-            <div className="case-study-item animate-zoom-in">
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Columbia_coat_of_arms_no_crest.svg/360px-Columbia_coat_of_arms_no_crest.svg.png" alt="Columbia Logo" />
-              </div>
-              <h3>$249,000 Saved Over 4 Years</h3>
-              <p>
-                Thomas combined multiple scholarship opportunities to make Columbia University affordable.
-              </p>
-              <p><strong>New Cost of Attendance:</strong> $19,800</p>
+            {/* Call to Action */}
+            <div className="cta">
+              <Link to="/signup" className="btn btn-primary btn-lg" style={{ width: '30vw' }}>
+                Get Your Price Estimate
+              </Link>
             </div>
           </div>
+        </section>
 
-          {/* Call to Action */}
-          <div className="cta">
-            <Link to="/signup" className="btn btn-primary btn-lg" style={{width:'30vw'}}>Get Your Price Estimate</Link>
-          </div>
-        </div>
-      </section>
 
       {/* About Secti
       on */}
@@ -208,7 +271,7 @@ function Home() {
           <p>
             Our proven strategies have helped over 30,000 families save an average of <b>$84,000</b> on college education.
           </p>
-          <Link to="/signup" className="btn btn-secondary" style={{width:'30vw'}}>Learn How We Can Help</Link>
+          <Link to="/signup" className="btn btn-secondary btn-lg" style={{width:'30vw'}}>Learn How We Can Help</Link>
         </div>
       </section>
 
