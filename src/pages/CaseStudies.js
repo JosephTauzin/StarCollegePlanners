@@ -41,7 +41,7 @@ function CaseStudies() {
         <nav className="flat-navbar" style={{backgroundColor:'white', marginTop:'-7vh', paddingBottom:'2vh' }}>
         <div className="container-align">
           <div className="navbar-logo">
-            <img style={{width:'8vw', height:'20vh', position:'absolute', marginLeft:'-30vw', marginTop:'-1vh'}} src={require('./assets/LogoWithGT.png')} alt="Game Theory College Planners" />
+            <img style={{width:'10vw', height:'20vh', position:'absolute', marginLeft:'-30vw', marginTop:'0vh'}} src={require('./assets/LogoWithGT.png')} alt="Game Theory College Planners" />
           </div>
           <ul className="navbar-menu">
             <li><Link to="/" className={window.location.pathname === '/' ? 'active' : 'not_active'}>Home</Link></li>

@@ -10,7 +10,7 @@ function Process() {
           <nav className="flat-navbar" style={{ paddingTop:'2vh', backgroundColor:'white'}}>
         <div className="container-align">
           <div className="navbar-logo">
-            <img style={{width:'8vw', height:'20vh', position:'absolute', marginLeft:'-30vw', marginTop:'-1vh'}} src={require('./assets/LogoWithGT.png')} alt="Game Theory College Planners" />
+            <img style={{width:'10vw', height:'20vh', position:'absolute', marginLeft:'-30vw', marginTop:'-1vh'}} src={require('./assets/LogoWithGT.png')} alt="Game Theory College Planners" />
           </div>
           <ul className="navbar-menu">
             <li><Link to="/" className={window.location.pathname === '/' ? 'active' : 'not_active'}>Home</Link></li>
@@ -116,7 +116,7 @@ function Process() {
         alignItems: 'flex-end',
         justifyContent: 'space-between',
         padding: '20px',
-        backgroundColor: '#f8f9fa',
+        marginTop:'-15vh',
         borderRadius: '8px',
         gap: '1vw',
       }}
@@ -215,6 +215,7 @@ function Process() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: 'white',
+               
                 fontSize: '1vw',
                 fontWeight: 'bold',
                 textAlign: 'center',
@@ -278,7 +279,7 @@ function Process() {
       </div>
     </div>
 
-    <p style={{ marginTop: '5vh' }}>
+    <p style={{ marginTop: '10vh' }}>
       <strong>Wholesale Cost (Out the Door Price):</strong>
     </p>
     <div

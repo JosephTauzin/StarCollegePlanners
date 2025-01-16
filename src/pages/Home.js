@@ -16,7 +16,7 @@ function Home() {
       <nav className="flat-navbar" style={{marginBottom:'2vh', paddingTop:'2vh'}}>
         <div className="container-align">
           <div className="navbar-logo">
-            <img style={{width:'8vw', height:'20vh', position:'absolute', marginLeft:'-30vw', marginTop:'-1vh'}} src={require('./assets/LogoWithGT.png')} alt="Game Theory College Planners" />
+            <img style={{width:'10vw', height:'20vh', position:'absolute', marginLeft:'-30vw', marginTop:'-1vh'}} src={require('./assets/LogoWithGT.png')} alt="Game Theory College Planners" />
           </div>
           <ul className="navbar-menu">
             <li><Link to="/" className={window.location.pathname === '/' ? 'active' : 'not_active'}>Home</Link></li>
