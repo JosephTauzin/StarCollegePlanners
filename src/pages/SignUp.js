@@ -289,7 +289,8 @@ useEffect(() => {
                 required
               />
             </motion.div>
-            {/* Available Slots as Buttons */}
+            {/*
+           
             <motion.div
               className="form-group slots-group"
               initial={{ opacity: 0, x: 50 }}
@@ -338,6 +339,7 @@ useEffect(() => {
                 </p>
               )}
             </motion.div>
+            */}
             <motion.button
               type="submit"
               className="btn btn-primary btn-block"
@@ -347,6 +349,7 @@ useEffect(() => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.5 }}
               disabled={!formData.date}
+              style={{marginTop:'5vh'}}
             >
               Sign Up
             </motion.button>
