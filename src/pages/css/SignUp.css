@@ -64,6 +64,7 @@
 
 @media (max-width: 480px) {
   .signup-page .webinar-header { min-height: 72px; }
+  .signup-page .webinar-logo .brand-logo { height: 56px; }
   .signup-page .webinar-home-link { font-size: 13.5px; }
   .signup-page .webinar-home-link .icon { display: none; }
   .signup-page .webinar-stats dd { font-size: 34px; }
