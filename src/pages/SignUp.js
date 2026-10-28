@@ -1,373 +1,156 @@
-// src/SignUp.js
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './css/SignUp.css'; // For custom styles
-import { motion, AnimatePresence } from 'framer-motion';
-
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Icon from '../components/Icon';
+import Logo from '../components/Logo';
+import './css/SignUp.css';
 
-function SignUp() {
-  // State for the form data
-  const [formData, setFormData] = useState({ name: '', email: '', date: null });
-  const [status, setStatus] = useState('');
+const WEBINAR_DATES_URL = 'https://firebasestorage.googleapis.com/v0/b/tutorspace-7a7f1.appspot.com/o/StarCollegePlanners%2FWebinarDates.json?alt=media&token=2a74798b-938d-4d77-92f0-a17db6200be1';
 
-
-  // Testimonials data
-  const testimonials = [
-    {
-      title: "Game Theory helped our family save $100,000 on college expenses!",
-      subtitle: "– Jane D.",
-    },
-    {
-      title: "My daughter received a full scholarship, thanks to their guidance.",
-      subtitle: "— Mark P.",
-    },
-    {
-      title: "A must-attend for professionals who need some guideness with reducing college costs.",
-      subtitle: "— Casey M.",
-    },
-    // Add more testimonials as needed
-  ];
-
-  // Available slots grouped by date
-
-  const [availableSlots, setAvailableSlots] = useState(
-    [
-        {
-          date: 'November 25, 2023',
-          times: ['10:00 AM', '2:00 PM'],
-        },
-        {
-          date: 'December 2, 2023',
-          times: ['11:00 AM', '3:00 PM'],
-        },
-        {
-          date: 'December 9, 2023',
-          times: ['9:00 AM', '1:00 PM'],
-        },
-        // Add more slots as needed
-      ]
-  )
- 
-
-  // State to manage the current testimonial index
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-
-  // Effect to loop through testimonials every 10 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial(
-        (prevIndex) => (prevIndex + 1) % testimonials.length
-      );
-    }, 10000); // 10000ms = 10 seconds
-    return () => clearInterval(interval);
-  }, [testimonials.length]);
-
-  // Handle slot selection
-  const handleSlotSelection = (date, time) => {
-    // Create a Date object from the selected date and time
-    const selectedDate = new Date(`${date} ${time}`);
-    setFormData({ ...formData, date: selectedDate });
-  };
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const formattedData = {
-      ...formData,
-      date: formData.date.toISOString(),
-    };
-
-    axios
-      .post('http://localhost:5000/api/signup', formattedData)
-      .then((response) => {
-        setStatus('Success! You have signed up for the webinar.');
-      })
-      .catch((error) => {
-        setStatus('Error: Unable to sign up.');
-      });
-  };
-
-function getEmailFromUrl() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const email = urlParams.get('email');
-  return email;
-}
-
-function getNameFromUrl(){
-  const urlParams = new URLSearchParams(window.location.search);
-  const name = urlParams.get('name');
-  return name;
-}
-
-function transformDates(jsonData) {
-    const data = jsonData
-    const groupedDates = new Map();
-  
-    data.Dates.forEach(dateTimeStr => {
-      // Replace space with 'T' to make it ISO 8601 compliant
-      const dateTimeISO = dateTimeStr.replace(' ', 'T');
-      const dateObj = new Date(dateTimeISO);
-  
-      // Extract the date part as a key
-      const dateKey = dateObj.toDateString();
-  
-      // Format the time in 'h:mm A' format
-      const timeOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
-      const timeStr = dateObj.toLocaleTimeString('en-US', timeOptions);
-  
-      if (groupedDates.has(dateKey)) {
-        groupedDates.get(dateKey).push(timeStr);
-      } else {
-        groupedDates.set(dateKey, [timeStr]);
-      }
-    });
-  
-    const availableSlots = [];
-  
-    groupedDates.forEach((times, dateKey) => {
-      const dateObj = new Date(dateKey);
-      const dateOptions = { month: 'long', day: 'numeric', year: 'numeric' };
-      const dateStr = dateObj.toLocaleDateString('en-US', dateOptions);
-  
-      availableSlots.push({
-        date: dateStr,
-        times: times
-      });
-    });
-  
-    return availableSlots;
+function upcomingDates(data) {
+  if (!data || !Array.isArray(data.Dates)) {
+    throw new Error('The webinar schedule could not be read.');
   }
 
-useEffect(() => {
-    const emailFromUrl = getEmailFromUrl();
-    const nameFromUrl = getNameFromUrl()
-    if (emailFromUrl) {
-      setFormData((prevData) => ({ ...prevData, email: emailFromUrl }));
+  const now = Date.now();
+  const timestamps = data.Dates
+    .filter((value) => typeof value === 'string')
+    .map((value) => new Date(value.trim().replace(/^(\d{4}-\d{2}-\d{2})\s+/, '$1T')).getTime())
+    .filter((timestamp) => Number.isFinite(timestamp) && timestamp > now);
+
+  return [...new Set(timestamps)]
+    .sort((first, second) => first - second)
+    .map((timestamp) => new Date(timestamp));
+}
+
+function SignUp() {
+  const [formData, setFormData] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return { name: params.get('name') || '', email: params.get('email') || '', date: '' };
+  });
+  const [dates, setDates] = useState([]);
+  const [scheduleState, setScheduleState] = useState('loading');
+  const [refreshCount, setRefreshCount] = useState(0);
+  const [formError, setFormError] = useState('');
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 15000);
+    let active = true;
+    setScheduleState('loading');
+    setDates([]);
+    setFormData((current) => ({ ...current, date: '' }));
+
+    async function loadSchedule() {
+      try {
+        const response = await fetch(WEBINAR_DATES_URL, { signal: controller.signal });
+        if (!response.ok) throw new Error('The webinar schedule is unavailable.');
+        const availableDates = upcomingDates(await response.json());
+        if (!active) return;
+        setDates(availableDates);
+        setScheduleState(availableDates.length ? 'ready' : 'empty');
+      } catch (error) {
+        if (active) setScheduleState('error');
+      } finally {
+        window.clearTimeout(timeout);
+      }
     }
-    if(nameFromUrl){
-        setFormData((prevData) => ({ ...prevData, name: nameFromUrl }));
+
+    loadSchedule();
+    return () => {
+      active = false;
+      controller.abort();
+      window.clearTimeout(timeout);
+    };
+  }, [refreshCount]);
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setFormData((current) => ({ ...current, [name]: value }));
+    setFormError('');
+  }
+
+  function handleSubmit(event) {
+    const selectedDate = dates.find((date) => date.toISOString() === formData.date);
+    if (!selectedDate || selectedDate.getTime() <= Date.now()) {
+      event.preventDefault();
+      setFormError('Please choose an upcoming webinar date before signing up.');
+      setRefreshCount((count) => count + 1);
     }
-  }, []);
+  }
 
-  /*
-      
-          <nav className="flat-navbar" style={{paddingBottom:'2vh', paddingTop:'2vh', backgroundColor:'white'}}>
-          <div className="container-align">
-            <div className="navbar-logo">
-  
-            </div>
-            <ul className="navbar-menu">
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/process">Process and Thesis</Link></li>
-              <li><Link to="/case-studies">Case Studies</Link></li>
-              <li><Link to="/online-portal">Online Portal</Link></li>
-              <li><Link to="/signup" className="btn btn-primary navbar-btn">Sign Up for a Webinar</Link></li>
-            </ul>
-          </div>
-        </nav>
-  */
-        const [jsonData, setJsonData] = useState(null);
-
-        useEffect(() => {
-          const fetchJsonFromUrl = async () => {
-            try {
-              const response = await fetch('https://firebasestorage.googleapis.com/v0/b/tutorspace-7a7f1.appspot.com/o/StarCollegePlanners%2FWebinarDates.json?alt=media&token=2a74798b-938d-4d77-92f0-a17db6200be1');
-              if (!response.ok) {
-                throw new Error('Network response was not ok');
-              }
-              const data = await response.json();
-              setJsonData(data);
-              setAvailableSlots(transformDates(data));
-              console.log('availableSlots',availableSlots)
-            } catch (error) {
-              console.error('Error fetching JSON from URL:', error);
-            }
-          };
-      
-          fetchJsonFromUrl();
-        }, []);
-
-        console.log('jsonDates', jsonData)
-      
- 
   return (
+    <main className="signup-page">
+      <header className="webinar-header">
+        <Link className="webinar-logo" to="/" aria-label="Star College Planners by GameTheory, home"><Logo /></Link>
+        <Link className="webinar-home-link" to="/"><Icon name="arrow" /> Back to home</Link>
+      </header>
 
-    <div>
+      <div className="webinar-layout">
+        <section className="webinar-intro" aria-labelledby="webinar-title">
+          <p className="webinar-eyebrow"><Icon name="knight" /> Free webinar for parents</p>
+          <h1 id="webinar-title">Learn the moves <em>before you apply.</em></h1>
+          <p className="webinar-description">
+            See how colleges set their prices, how financial aid is really calculated, and how
+            GameTheory families get four years of college for the price of two, sometimes less.
+          </p>
+          <div className="webinar-topics">
+            <h2>What you’ll learn</h2>
+            <ol>
+              <li><span aria-hidden="true">01</span><div><h3>The cost to graduate</h3><p>Why four-year graduation rates matter more than the first year’s price.</p></div></li>
+              <li><span aria-hidden="true">02</span><div><h3>Your Student Aid Index</h3><p>How to estimate it before the colleges do, and what moves it.</p></div></li>
+              <li><span aria-hidden="true">03</span><div><h3>Colleges that admit, and pay</h3><p>How to find the schools most likely to compete for your student with merit aid.</p></div></li>
+              <li><span aria-hidden="true">04</span><div><h3>Award letters and appeals</h3><p>How to compare offers and leave no money on the table.</p></div></li>
+            </ol>
+          </div>
+          <dl className="webinar-stats">
+            <div><dt>families helped by GameTheory</dt><dd>30,000+</dd></div>
+            <div><dt>average saved per family</dt><dd>$84,000</dd></div>
+          </dl>
+        </section>
 
-    <motion.div
-      className="signup-page"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8, ease: 'easeOut' }}
-    >
-      <div className="containerSignUp">
-        {/* Left Side - Testimonials */}
-        <div className="left-side">
-        <div className='logo-container' onClick={() => window.location.href = '/'} style={{ cursor: 'pointer' }}>
-            <img className='logo-image' src={require('./assets/LogoWithGT.png')} alt="logo" />
-        </div>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentTestimonial}
-              className="testimonial"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 50 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 style={{color:'black'}}>{testimonials[currentTestimonial].title}</h1>
-              <p>{testimonials[currentTestimonial].subtitle}</p>
-            </motion.div>
-          </AnimatePresence>
-        
-          <div class="social-icons">
-                <a href="https://www.facebook.com/gametheorycollege" target="_blank">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Facebook_Logo_2023.png" alt="Facebook"/>
-                </a>
-                <a href="https://www.x.com/gtheorycollege" target="_blank">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" alt="X"/>
-                </a>
-                <a href="https://www.instagram.com/gametheorycollege" target="_blank">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"/>
-                </a>
-                <a href="https://www.linkedin.com/company/game-theory-college-planners/" target="_blank">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" alt="LinkedIn"/>
-                </a>
+        <section className="webinar-form-card" aria-labelledby="webinar-form-title">
+          <div className="webinar-card-topline"><span>Your first move</span><span className="webinar-free">Free</span></div>
+          <h2 id="webinar-form-title">Save your seat.</h2>
+          <p className="webinar-card-description">Choose an upcoming session. It’s online, and there’s no cost to attend.</p>
+
+          <form action="https://usebasin.com/f/a645cfae4253" method="POST" onSubmit={handleSubmit}>
+            <div className="webinar-field">
+              <label htmlFor="webinar-name">Full name</label>
+              <input id="webinar-name" name="name" type="text" autoComplete="name" placeholder="Your full name" value={formData.name} onChange={handleChange} required />
             </div>
-      
-        </div>
-
-        {/* Right Side - Sign Up Form */}
-        {
-            /*
-            <motion.h2
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            College Planning Webinar
-          </motion.h2>
-            */
-        }
-        <div className="right-side">
-          
-          <form action="https://usebasin.com/f/a645cfae4253" method="POST">
-            <motion.div
-              className="form-group"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-            >
-              <label>Name:</label>
-              <input
-                type="text"
-                name="name"
-                className="form-control"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-            </motion.div>
-            <motion.div
-              className="form-group"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-            >
-              <label>Email:</label>
-              <input
-                type="email"
-                name="email"
-                className="form-control"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </motion.div>
-            {/*
-           
-            <motion.div
-              className="form-group slots-group"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-            >
-              <label>Select a Date and Time:</label>
-              <div className="slots-container">
-                {availableSlots.map((slot) => (
-                  <div key={slot.date} className="slot-date-group">
-                    <h3>{slot.date}</h3>
-                    <div className="slot-times">
-                      {slot.times.map((time) => {
-                        const isSelected =
-                          formData.date &&
-                          formData.date.toString() ===
-                            new Date(`${slot.date} ${time}`).toString();
-                        return (
-                          <button
-                            key={time}
-                            type="button"
-                            className={`slot-button ${
-                              isSelected ? 'selected' : ''
-                            }`}
-                            onClick={() => handleSlotSelection(slot.date, time)}
-                          >
-                            {time}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
+            <div className="webinar-field">
+              <label htmlFor="webinar-email">Email address</label>
+              <input id="webinar-email" name="email" type="email" autoComplete="email" placeholder="you@example.com" value={formData.email} onChange={handleChange} required />
+            </div>
+            <div className="webinar-field">
+              <label htmlFor="webinar-date">Webinar date &amp; time</label>
+              <select id="webinar-date" name="date" value={formData.date} onChange={handleChange} required disabled={scheduleState !== 'ready'} aria-describedby="webinar-schedule-message">
+                <option value="">{scheduleState === 'loading' ? 'Loading upcoming sessions…' : 'Select a session'}</option>
+                {dates.map((date) => (
+                  <option key={date.toISOString()} value={date.toISOString()}>
+                    {date.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' })}
+                  </option>
                 ))}
+              </select>
+              <div id="webinar-schedule-message" className="webinar-schedule-message" aria-live="polite" role="status">
+                {scheduleState === 'loading' && <p>Checking the latest webinar schedule.</p>}
+                {scheduleState === 'ready' && <p>Times are shown in your local time zone.</p>}
+                {scheduleState === 'empty' && <p>There are no upcoming sessions on the schedule yet. Please check back soon.</p>}
+                {scheduleState === 'error' && <p>We couldn’t load the webinar schedule. Please try again.</p>}
               </div>
-              {formData.date && (
-                <p className="selected-date">
-                  Selected Slot:{' '}
-                  {formData.date.toLocaleString('en-US', {
-                    month: 'long',
-                    day: 'numeric',
-                    year: 'numeric',
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    hour12: true,
-                  })}
-                </p>
+              {(scheduleState === 'error' || scheduleState === 'empty') && (
+                <button className="webinar-retry" type="button" onClick={() => setRefreshCount((count) => count + 1)}>Refresh the schedule <span aria-hidden="true">↻</span></button>
               )}
-            </motion.div>
-            */}
-            <motion.button
-              type="submit"
-              className="btn btn-primary btn-block"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-              disabled={!formData.date}
-              style={{marginTop:'5vh'}}
-            >
-              Sign Up
-            </motion.button>
+            </div>
+            {formError && <p className="webinar-form-error" role="alert">{formError}</p>}
+            <button className="webinar-submit" type="submit" disabled={scheduleState !== 'ready' || !formData.date}>Save my place <Icon name="arrow" /></button>
+            <p className="webinar-form-note">Use an email address where you’d like to receive your webinar information.</p>
           </form>
-          {status && (
-            <motion.p
-              className="status-message"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              {status}
-            </motion.p>
-          )}
-        </div>
+          <div className="webinar-card-footer"><Icon name="check" /> No cost and no obligation, just a smarter plan.</div>
+        </section>
       </div>
-    </motion.div>
-    </div>
+      <footer className="webinar-footer">© {new Date().getFullYear()} Star College Planners. Powered by GameTheory College Planners.</footer>
+    </main>
   );
 }
 

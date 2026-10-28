@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "star-dev",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "BROWSER=none npm start"],
+      "port": 3000
+    }
+  ]
+}
